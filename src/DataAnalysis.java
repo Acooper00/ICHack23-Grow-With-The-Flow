@@ -1,11 +1,40 @@
 import java.util.HashMap;
 
 public class DataAnalysis {
-    double maxHumid = 77.5;
-    int maxTemp = 30;
-    int maxSalt = 450;
+    double maxHumid = 100;
+    int maxTemp = 40;
+    int maxSalt = 100;
+
+    public static void main(String[] args) {
+        DataAnalysis d = new DataAnalysis();
+        args[0] ="24";
+        args[0] ="60";
+        args[0] ="400";
+        PlantRec r = d.plantIndex(Integer.parseInt(args[0]), Integer.parseInt(args[1]), Integer.parseInt(args[2]));
+        System.out.println(r);
+    }
+
+    @Override
+    public String toString() {
+        return "DataAnalysis{" +
+                "maxHumid=" + maxHumid +
+                ", maxTemp=" + maxTemp +
+                ", maxSalt=" + maxSalt +
+                ", database=" + database +
+                '}';
+    }
 
     public static class PlantRec {
+        @Override
+        public String toString() {
+            return "PlantRec{" +
+                    "plantName='" + plantName + '\'' +
+                    ", idealTemperature=" + idealTemperature +
+                    ", humidity=" + humidity +
+                    ", salinity=" + salinity +
+                    '}';
+        }
+
         String plantName;
         double idealTemperature; /* Normalised from 40 deg or lower */
         double humidity; /* normalised from 0 to 100 percent */
@@ -40,13 +69,14 @@ public class DataAnalysis {
         PlantRec leastPlant = null;
         for (String j : database.keySet()) {
             PlantRec record = database.get(j);
-            double currVal = Math.pow(record.humidity / maxHumid, 2)
-                    + Math.pow(record.idealTemperature / maxTemp, 2) + Math.pow(record.salinity / maxSalt, 2);
+            double currVal = 0.75 * Math.pow(record.humidity / maxHumid, 2)
+                    + Math.pow(record.idealTemperature / maxTemp, 2) + 0.5 * Math.pow(record.salinity / maxSalt, 2);
+            System.out.println(j + " and: " + currVal);
             if (leastVal > currVal) {
                 leastVal = currVal;
                 leastPlant = record;
             }
         }
-        return leastPlant;
+        return (leastPlant);
     }
 }
