@@ -6,9 +6,9 @@ public class DataAnalysis {
     int maxSalt = 1000;
 
     public static class PlantRec {
-        int idealTemperature; /* Normalised from 40 deg or lower */
-        int humidity; /* normalised from 0 to 100 percent */
-        int salinity; /* normalised from 0 to 1000 mg per liter */
+        double idealTemperature; /* Normalised from 40 deg or lower */
+        double humidity; /* normalised from 0 to 100 percent */
+        double salinity; /* normalised from 0 to 1000 mg per liter */
 
         public PlantRec(int t, int h, int s) {
             this.idealTemperature = t;
